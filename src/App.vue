@@ -7,7 +7,7 @@ import products from './data/product';
 import DEFAULT_FILTERS from './data/filter';
 import { computed, reactive } from 'vue';
 import type { ProductCartInterface, ProductInterface } from './interfaces';
-import type { Category, Filter, FilterInterface } from './interfaces/Filter.interface';
+import type { Category, Filter, FilterInterface, FilterUpdate } from './interfaces/Filter.interface';
 
 const state = reactive<{
     products: ProductInterface[],
@@ -42,21 +42,8 @@ function removeProductFromCart(productId: number): void {
     }
 }
 
-function updateFilter({ filterName, filterValue }: { filterName: 'priceRange', filterValue: [number, number] } | { filterName: 'search', filterValue: string } | { filterName: 'category', filterValue: Category }) {
-    switch (filterName) {
-        case 'search': {
-            state.filters.search = filterValue
-            break;
-        }
-        case 'priceRange': {
-            state.filters.priceRange = filterValue
-            break;
-        }
-        case 'category': {
-            state.filters.category = filterValue;
-            break;
-        }
-    }
+function updateFilter(update: FilterUpdate) {
+    state.filters[update.filterName] = update.filterValue;
 }
 
 function resetFilters() {
@@ -67,8 +54,8 @@ const cartEmpty = computed(() => state.cart.length === 0)
 
 const filteredProduct = computed(() => {
     return state.products.filter((product) => {
-        const { priceRange: [minPrice, maxPrice], category, search } = state.filters;
-        if (product.price >= minPrice && product.price <= maxPrice && (category === 'all' || product.category === category && product.title.toLocaleLowerCase().startsWith(search.toLocaleLowerCase()))) {
+        const { minPrice, maxPrice, category, search } = state.filters;
+        if (product.price >= +minPrice && product.price <= +maxPrice && (category === 'all' || product.category === category && product.title.toLocaleLowerCase().startsWith(search.toLocaleLowerCase()))) {
             return true
         } else {
             return false;

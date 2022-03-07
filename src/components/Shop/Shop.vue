@@ -2,7 +2,7 @@
 import type { ProductInterface } from '@/interfaces';
 import ShopProductList from './ShopProductList.vue';
 import ShopFilters from './ShopFilters.vue';
-import type { Category, Filter, FilterInterface } from '@/interfaces/Filter.interface';
+import type { Category, Filter, FilterInterface, FilterUpdate } from '@/interfaces/Filter.interface';
 
 defineProps<{
     products: ProductInterface[],
@@ -11,7 +11,7 @@ defineProps<{
 
 const emit = defineEmits<{
     (e: 'addProductToCart', productId: number): void
-    (e: 'updateFilter', update: { filterName: 'priceRange', filterValue: [number, number] } | { filterName: 'search', filterValue: string } | { filterName: 'category', filterValue: Category }): void
+    (e: 'updateFilter', update: FilterUpdate): void
 }>()
 
 </script>

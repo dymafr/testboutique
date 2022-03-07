@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Category, FilterInterface, FilterUpdate } from '@/interfaces/Filter.interface';
 
-const { filters: { search, priceRange, category } } = defineProps<{
+const { filters: { search, maxPrice, minPrice, category } } = defineProps<{
     filters: FilterInterface
 }>()
 
@@ -45,7 +45,7 @@ function updateSearch(value: string): void {
             </div>
             <div class="mb-5">
                 <input type="radio" id="2000+" name="price" />
-                <label for="2000+">Entre 800 et 1000</label>
+                <label for="2000+">Plus de 2000</label>
             </div>
         </div>
         <div>

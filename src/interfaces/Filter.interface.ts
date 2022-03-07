@@ -1,12 +1,15 @@
-
 export type Category = 'gamer' | 'desktop' | 'streaming' | 'all';
 
-export type Filter = 'priceRange' | 'category' | 'search';
+export type Filter = 'maxPrice' | 'category' | 'search' | 'minPrice';
 
-export type FilterUpdate = { filterName: 'priceRange', filterValue: [number, number] } | { filterName: 'search', filterValue: string } | { filterName: 'category', filterValue: Category }
+export type FilterUpdate = {
+  filterName: Filter;
+  filterValue: string;
+};
 
 export interface FilterInterface {
-    priceRange: [number, number],
-    category: Category,
-    search: string;
+  maxPrice: string;
+  minPrice: string;
+  category: string;
+  search: string;
 }
